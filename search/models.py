@@ -43,6 +43,6 @@ class Meibo(models.Model):
         cls.objects.all().delete()
         db_table = cls.objects.model._meta.db_table
         con = create_engine("sqlite:///" + (settings.DATABASES['default']['NAME']).name)
-        df = pd.read_csv(filename, header=None, names=fields, encoding='cp932', skiprows=1)
+        df = pd.read_csv(filename, header=None, names=fields, encoding='utf-8', skiprows=1)
         df.tanjo_bi.replace('\/', r'-', regex=True, inplace=True)
         df.to_sql(db_table, con, if_exists='append', index=False)

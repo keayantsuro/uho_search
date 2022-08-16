@@ -12,7 +12,6 @@
 * 検索文字列はスペースで区切って指定します（大文字、小文字どちらでも可）
 * 検索文字列は正規表現が使えます（例:子$ [BA]型 -> 名前が子で終わり、血液型がBかA型） 
 * CSV のアップローダが付いています（サンプルデータ sample.csv 付き）
-* スタイルシートは tailwind を使いました
 
 
 <br>
@@ -94,7 +93,13 @@ kazina.com 様の [なんちゃって個人情報](http://kazina.com/dummy/index
    * 都道府県
    * 電話番号
 1. なんちゃって生成ボタンを押します
-1. Downloads に dummy.cgi がダウンロードされます
+1. ~/ダウンロード に dummy.cgi がダウンロードされます
 
+dummy.cgi の文字コードセットは、Shift_Jis 形式なので、UTF-8 に変換します。
+<br>
+例）
+``` bash
+nkf -w8 dummy.cgi > sample.csv
+```
 <br>
 おわり
