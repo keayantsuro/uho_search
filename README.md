@@ -18,12 +18,12 @@
 
 ### settings_local.py について
 
-下記の手順で、settings_local.py に追加してください。
-<br>
+1. settings_local.py を追加して、次の行をコピペしてください。
 
-* SECRET_KEY
-* NPM_BIN_PATH
-
+   ``` python
+   SECRET_KEY = 'p8tohlyf4#2&7i%ts!9r&p*s-fn*p76@2kiwpj6-*a&33dx155'
+   ```
+1. 下記の SECRET_KEY の生成方法より、新しい SECRET_KEY を生成して settings_local.py に上書きしてください。
 
 <br>
 
@@ -45,37 +45,26 @@
    ``` python
    'p8tohlyf4#2&7i%ts!9r&p*s-fn*p76@2kiwpj6-*a&33dx155'
    ```
+1. CTRL + Z + Enter でシェルを抜けます。
+   ``` python
+   ^D
+   ```
 
-<br>
-
-### NPM_PATH について
-
-* Windows の場合は ``` gcm npm | select source``` 
-* Linux の場合は ``` which npm ```
-
-と打って出てきた文字列を NPM_BIN_PATH の右辺にコピペします
-
-<br>
-
-例）settings_local.py
-``` python
-SECRET_KEY = 'p8tohlyf4#2&7i%ts!9r&p*s-fn*p76@2kiwpj6-*a&33dx155'
-NPM_BIN_PATH = 'C:/Program Files/nodejs/npm.cmd'
-```
 <br>
 
 ### マイグレーションの手順
 
 ``` bash
-python manage.py makemigrations
 python manage.py migrate
 ```
+これにより db.sqlite3 というファイルが出来て、テーブルが作成されます。
 
 <br>
 
 ### サンプルデータについて
 
-kazina.com 様の [なんちゃって個人情報](http://kazina.com/dummy/index.html) から頂きました。
+kazina 様の [なんちゃって個人情報](http://kazina.com/dummy/index.html) から頂きました。
+このプロジェクトにも [sample.csv](./sample.csv) が付属します。
 
 <br>
 
@@ -95,7 +84,12 @@ kazina.com 様の [なんちゃって個人情報](http://kazina.com/dummy/index
 1. なんちゃって生成ボタンを押します
 1. ~/ダウンロード に dummy.cgi がダウンロードされます
 
-dummy.cgi の文字コードセットは、Shift_Jis 形式なので、UTF-8 に変換します。
+<br>
+
+##### 注意事項
+
+生成された dummy.cgi の文字コードセットは、Shift_Jis 形式なので、UTF-8 の**BOM付き**に変換してください。
+
 <br>
 例）
 ``` bash
