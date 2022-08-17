@@ -18,12 +18,12 @@
 
 ### settings_local.py について
 
-1. settings_local.py を追加して、次の行をコピペしてください。
+1. settings.py と同じディレクトリに settings_local.py を追加して、次の行をコピペして保存します。
 
    ``` python
    SECRET_KEY = 'p8tohlyf4#2&7i%ts!9r&p*s-fn*p76@2kiwpj6-*a&33dx155'
    ```
-1. 下記の SECRET_KEY の生成方法より、新しい SECRET_KEY を生成して settings_local.py に上書きしてください。
+1. 下記の SECRET_KEY の生成方法より、新しい SECRET_KEY を生成して settings_local.py の同じ個所に上書きしてください。
 
 <br>
 
@@ -43,7 +43,7 @@
    ```
 1. 出てきた文字列を settings_local.py の SECRET_KEY の右辺にコピペします
    ``` python
-   'p8tohlyf4#2&7i%ts!9r&p*s-fn*p76@2kiwpj6-*a&33dx155'
+   '3%3j&)l8h5j*e4ui7ctd9wiqha-=bh9!d8g#))y32a$b=29q=v'
    ```
 1. CTRL + Z + Enter でシェルを抜けます。
    ``` python
@@ -63,8 +63,7 @@ python manage.py migrate
 
 ### サンプルデータについて
 
-kazina 様の [なんちゃって個人情報](http://kazina.com/dummy/index.html) から頂きました。
-このプロジェクトにも [sample.csv](./sample.csv) が付属します。
+このプロジェクトにも [sample.csv](./sample.csv) が付属しますが、本家 kazina 様の [なんちゃって個人情報](http://kazina.com/dummy/index.html) からもダウンロードできます。
 
 <br>
 
