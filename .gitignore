@@ -5,3 +5,4 @@ __pycache__
 settings_local.py
 db.sqlite3
 theme/
+node_modules/
