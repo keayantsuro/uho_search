@@ -1,6 +1,9 @@
-## Django でなんちゃって検索フォーム
+## Django でなんちゃって検索
 
 <br>
+
+こんなプログラムです。
+
 
 <img src="https://cdn-ak.f.st-hatena.com/images/fotolife/u/uhoo/20210209/20210209211826.gif" width="60%">
 
@@ -10,13 +13,23 @@
 ### 特徴
 
 * 検索文字列はスペースで区切って指定します（大文字、小文字どちらでも可）
-* 検索文字列は正規表現が使えます（例:子$ [BA]型 -> 名前が子で終わり、血液型がBかA型） 
+* 検索文字列は正規表現が使えます（例: 名前が子で終わり、血液型がAかB型のとき ``` 子$ ^[AB]型 ```） 
 * CSV のアップローダが付いています（サンプルデータ sample.csv 付き）
 
 
 <br>
 
-### settings_local.py について
+### このプログラムを使うには
+
+以下の３つの操作を実行します。
+
+* settings_local.py を作成する
+* マイグレーション
+* サンプルデータの取り込み
+
+<br>
+
+#### settings_local.py を作成する
 
 1. settings_local.py を追加して、次の行をコピペしてください。
 
@@ -27,7 +40,7 @@
 
 <br>
 
-### SECRET_KEY の生成方法
+#### SECRET_KEY の生成方法
 
 1. シェルを起動します
    ``` bash
@@ -47,30 +60,38 @@
    ```
 1. CTRL + Z + Enter でシェルを抜けます。
    ``` python
-   ^D
+   ^Z
    ```
 
 <br>
 
-### マイグレーションの手順
+### マイグレーション
 
 ``` bash
 python manage.py migrate
 ```
-これにより db.sqlite3 というファイルが出来て、テーブルが作成されます。
+これにより db.sqlite3 というファイルが作成されます。
 
 <br>
 
-### サンプルデータについて
+### サンプルデータの取り込み
 
-kazina 様の [なんちゃって個人情報](http://kazina.com/dummy/index.html) から頂きました。
-このプロジェクトにも [sample.csv](./sample.csv) が付属します。
+付属の [sample.csv](./sample.csv) を、以下の手順で取り込みます。
+
+1. このプログラムを起動します ``` python manage.py runserver ```
+1. ブラウザから http://localhost:8000 を開きます
+1. 右上の三本線のマークをクリックし、アップロードをクリック
+1. 参照ボタンをクリックして [sample.csv](./sample.csv) を選択して開く
+1. アップロードボタンをクリック
 
 <br>
 
-### データの作り方
+#### データの作り方
 
-1. サイトに移動します
+このデータは、kazina 様の [なんちゃって個人情報](http://kazina.com/dummy/index.html) から頂きました。
+
+
+1. なんちゃって個人情報を開きます
 1. 出力形式: CSV を選択します
 1. オプションは次を選択します
    * 名前
@@ -86,14 +107,17 @@ kazina 様の [なんちゃって個人情報](http://kazina.com/dummy/index.htm
 
 <br>
 
-##### 注意事項
+##### ご注意
 
-生成された dummy.cgi の文字コードセットは、Shift_Jis 形式なので、UTF-8 の**BOM付き**に変換してください。
+ダウンロードされた dummy.cgi の文字コードセットは、Shift_Jis 形式なので、UTF-8 の**BOM付き**に変換してください。
 
 <br>
+
 例）
+
 ``` bash
 nkf -w8 dummy.cgi > sample.csv
 ```
+
 <br>
 おわり
