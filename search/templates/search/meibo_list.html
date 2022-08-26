@@ -1,47 +1,78 @@
 {% extends 'search/base.html' %}
-{% load widget_tweaks %}
 {% block content %}
-<div style="margin: 1em;">
-  <table class="table-auto">
-      <th>
-      </th>
-    {% for r in meibo_list %}
-      <tr>
-        <td class="border">{{r.simei}}</td>
-        <td class="border">{{r.simei_kana}}</td>
-        <td class="border">{{r.seibetu}}</td>
-        <td class="border">{{r.blood_gata}}</td>
-        <td class="border">{{r.tanjo_bi}}</td>
-        <td class="border">{{r.chiiki}}</td>
-        <td class="border">{{r.phone_bango}}</td>
-      </tr>
-      {% endfor %}
-      </div>
-  </table>
-  {% load extras %}
-  {% if page_obj.paginator.num_pages > 1 %}
-    <ul class="pagination">
-      <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
-        <a class="page-link" href="?{% page_link page_obj.previous_page_number %}" aria-label="前へ">
-          <span aria-hidden="true">&laquo;</span>
-        </a>
-      </li>
-      {% for page_num in page_obj.paginator.page_range %} 
-        <li class="page-item {% if page_num == page_obj.number %}active{% endif %}">
-          <a class="page-link" href="?{% page_link page_num %}">{{ page_num }}</a>
-        </li>
-      {% endfor %}
-      <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
-        <a class="page-link" href="?{% page_link page_obj.next_page_number %}" aria-label="次へ">
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
-    </ul>
+<table class="table-auto">
+  {% if meibo_list %}
+  <thead>
+    <th>氏名</th>
+    <th>かな</th>
+    <th>性別</th>
+    <th>血液型</th>
+    <th>生年月日</th>
+    <th>居住地</th>
+    <th>電話番号</th>
+  </thead>
   {% endif %}
-</div>
+  <tbody>
+    {% for r in meibo_list %}
+    <tr>
+      <td class="border px-4 py-2">{{r.simei}}</td>
+      <td class="border px-4 py-2">{{r.simei_kana}}</td>
+      <td class="border px-4 py-2">{{r.seibetu}}</td>
+      <td class="border px-4 py-2">{{r.blood_gata}}</td>
+      <td class="border px-4 py-2">{{r.tanjo_bi}}</td>
+      <td class="border px-4 py-2">{{r.chiiki}}</td>
+      <td class="border px-4 py-2">{{r.phone_bango}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% load extras %}
+{% if page_obj.paginator.num_pages > 1 %}
+<nav aria-label="Page navigation example" class="py-6">
+  <ul class="pagination inline-flex -space-x-px">
+    <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+      <a href="?{% page_link page_obj.previous_page_number %}" class="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" aria-label="前へ">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    {% for page_num in page_obj.paginator.page_range %} 
+    <li class="page-item {% if page_num == page_obj.number %}active{% endif %}">
+      <a href="?{% page_link page_num %}" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ page_num }}</a>
+    </li>
+    {% endfor %}
+    <li>
+      <a href="?{% page_link page_obj.next_page_number %}" class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" aria-label="次へ">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+{% endif %}
+<!--
+{% if page_obj.paginator.num_pages > 1 %}
+  <ul class="pagination">
+    <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+      <a class="page-link" href="?{% page_link page_obj.previous_page_number %}" aria-label="前へ">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    {% for page_num in page_obj.paginator.page_range %} 
+      <li class="page-item {% if page_num == page_obj.number %}active{% endif %}">
+        <a class="page-link" href="?{% page_link page_num %}">{{ page_num }}</a>
+      </li>
+    {% endfor %}
+    <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+      <a class="page-link" href="?{% page_link page_obj.next_page_number %}" aria-label="次へ">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+-->
+{% endif %}
 <script type="text/javascript">
-  var txt = document.getElementById('id_keywords');
-  var len = txt.value.length; txt.focus();
+  const txt = document.getElementById('id_keywords');
+  const len = txt.value.length;
+  txt.focus(); // id_keywords にフォーカス
   txt.setSelectionRange(len, len);
 </script>
 {% endblock %}
