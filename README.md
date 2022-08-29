@@ -4,7 +4,7 @@
 
 こんなプログラムです。
 
-<img src="https://user-images.githubusercontent.com/44894526/187105751-1a4deaa2-34d8-4dde-a4d6-a24d1ccd8387.gif" width="60%">
+<img src="https://user-images.githubusercontent.com/44894526/187105751-1a4deaa2-34d8-4dde-a4d6-a24d1ccd8387.gif" width="80%">
 
 <br>
 <br>
@@ -21,6 +21,7 @@
 
 以下の操作を実行します。
 
+1. リポジトリのクローン
 1. 仮想環境の作成
 1. settings_local.py の作成
 1. マイグレーション
@@ -29,13 +30,35 @@
 
 <br>
 
+### リポジトリのクローン
+
+1. 端末を開き、次のように入力します
+   ``` bash
+   git clone git@github.com:uhoogohan/uho_search.git
+   ```
+   このように出てくれば OK です
+   ``` bash
+   Cloning into 'uho_search'...
+   remote: Enumerating objects: 114, done.
+   remote: Counting objects: 100% (114/114), done.
+   remote: Compressing objects: 100% (76/76), done.
+   remote: Total 114 (delta 43), reused 99 (delta 28), pack-reused 0
+   Receiving objects: 100% (114/114), 678.05 KiB | 962.00 KiB/s, done.
+   Resolving deltas: 100% (43/43), done.
+   ```
+1. ベースディレクトリに移動します
+   ```
+   cd uho_search
+   ```
+   <br>
+
 ### 仮想環境の作成
 
-1. python の仮想環境を作ります
+1. 仮想環境を作ります
    ``` bash
    python3 -m venv venv
    ```
-1. venv というフォルダが作成されていることを確認します
+1. venv というディレクトリが作成されていることを確認します
    ``` bash
    ls -l venv
    ```
@@ -49,7 +72,11 @@
    lrwxrwxrwx 1 uhoo uhoo  3  8月 28 13:32 lib64 -> lib/
    -rw-rw-r-- 1 uhoo uhoo 70  8月 28 13:32 pyvenv.cfg
    ```
-2. requirements.txt よりモジュールをインストールします
+1. 仮想環境をアクティベートします
+   ``` bash
+   source venv/bin/activate
+   ```
+1. requirements.txt よりモジュールをインストールします
    ``` bash
    pip install -r requirement.txt
    ```
@@ -58,10 +85,14 @@
 
 ### settings_local.py の作成
 
-1. settings.py と同じフォルダに settings_local.py を追加して、次の行をコピペします
+1. settings.py と同じディレクトリに移動します
 
+   ``` bash
+   cd uho_search
+   ```
+1. settings_local.py に、次の行を追加します
    ``` python
-   SECRET_KEY = 'p8tohlyf4#2&7i%ts!9r&p*s-fn*p76@2kiwpj6-*a&33dx155'
+   echo "SECRET_KEY = 'p8tohlyf4#2&7i%ts!9r&p*s-fn*p76@2kiwpj6-*a&33dx155'" > settings_local.py
    ```
 1. 下記の SECRET_KEY の生成方法より、新しい SECRET_KEY を生成して settings_local.py に上書きしてください。
 
@@ -69,6 +100,10 @@
 
 #### SECRET_KEY の生成方法
 
+1. ベースディレクトリに移動します
+   ``` bash
+   cd ..
+   ```
 1. シェルを起動します
    ``` bash
    python3 manage.py shell
@@ -81,7 +116,7 @@
    ``` python
    get_random_secret_key()
    ```
-1. 出てきた文字列を settings_local.py の SECRET_KEY の右辺にコピペします
+1. 出てきた文字列をコピーしておきます
    ``` python
    'p8tohlyf4#2&7i%ts!9r&p*s-fn*p76@2kiwpj6-*a&33dx155'
    ```
@@ -89,27 +124,40 @@
    ``` python
    ^D
    ```
+1. settings_local.py の SECRET_KEY の右辺にコピペします
+   ```
+   SECRET_KEY = 'p8tohlyf4#2&7i%ts!9r&p*s-fn*p76@2kiwpj6-*a&33dx155'
+   ```
 
 <br>
 
 ### マイグレーション
 
-``` bash
-python3 manage.py migrate
-```
-これにより db.sqlite3 というファイルが作成されます。
+1. ベースディレクトリに戻ります
+   ``` bash
+   cd ..
+   ```
+1. 次のように入力します
+   ``` bash
+   python3 manage.py migrate
+   ```
+   これにより db.sqlite3 というファイルが作成されます。
 
 <br>
 
 ### プログラムの起動
 
-1. 仮想環境をアクティベートします
+1. ウェブサーバを起動します
    ``` bash
-   source venv/bin/activate
+   python3 manage.py runserver
    ```
-2. ウェブサーバを起動します
+1. 止めるときは Ctrl + C を押します
    ``` bash
-   python manage.py runserver
+   ^C
+   ```
+1. 仮想環境を止めます
+   ``` bash
+   deactivate
    ```
    
 
