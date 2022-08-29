@@ -4,7 +4,7 @@
 
 こんなプログラムです。
 
-<img src="https://cdn-ak.f.st-hatena.com/images/fotolife/u/uhoo/20210209/20210209211826.gif" width="60%">
+<img src="https://user-images.githubusercontent.com/44894526/187105751-1a4deaa2-34d8-4dde-a4d6-a24d1ccd8387.gif" width="60%">
 
 <br>
 <br>
