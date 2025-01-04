@@ -1,6 +1,6 @@
 .idea
 .vscode/
-venv/
+.venv/
 dummy.cgi
 __pycache__
 settings_local.py

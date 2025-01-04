@@ -120,9 +120,9 @@
    ``` python
    'p8tohlyf4#2&7i%ts!9r&p*s-fn*p76@2kiwpj6-*a&33dx155'
    ```
-1. CTRL + D  でシェルを抜けます。
+1. CTRL + z  でシェルを抜けます。
    ``` python
-   ^D
+   ^z
    ```
 1. settings_local.py の SECRET_KEY の右辺にコピペします
    ```
