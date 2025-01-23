@@ -1,10 +1,13 @@
 {% extends 'search/base.html' %}
 {% block content %}
-<div class="p-7">
+<div class="container content">
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ upload_form }}
-    <button id="upload" type="submit">Upload</button>
+    <div class="mb-3">
+      <label id="customFile" class="form-label">ファイルを選択してください</label>
+      {{ upload_form }}
+    </div>
+    <button id="upload" type="submit" class="btn btn-primary">Upload</button>
   </form>
 </div>
 {% endblock %}
