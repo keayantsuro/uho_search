@@ -2,7 +2,7 @@ from django.views import generic
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from pure_pagination.mixins import PaginationMixin
-from rest_framework import generics, viewsets
+from rest_framework import generics
 
 from .models import Meibo
 from .forms import SearchForm, UploadForm
@@ -22,7 +22,8 @@ class IndexView(PaginationMixin, generic.ListView):
         context['search_form'] = SearchForm(self.request.GET or None)
         return context
 
-class MeiboView(viewsets.ModelViewSet):
+# ListAPI用
+class MeiboListView(generics.ListAPIView):
     serializer_class = MeiboSerializer
     queryset = Meibo.objects.all()
 
@@ -31,13 +32,10 @@ class MeiboView(viewsets.ModelViewSet):
         q = Meibo.get_kensaku(keywords)
         return Meibo.objects.filter(q).order_by('simei_kana')
 
-class MeiboListCreate(generics.ListCreateAPIView):
+# DetailAPI用
+class MeiboDetailView(generics.RetrieveAPIView):
+    queryset = Meibo.objects.all()
     serializer_class = MeiboSerializer
-
-    def get_queryset(self):
-        keywords = self.request.GET.get('keywords', None)
-        q = Meibo.get_kensaku(keywords)
-        return Meibo.objects.filter(q).order_by('simei_kana')
 
 # ファイルのアップロード
 class UploadView(generic.TemplateView):
