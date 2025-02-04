@@ -3,6 +3,9 @@ from django.db.models import Q
 from django.conf import settings
 from sqlalchemy import create_engine
 import pandas as pd
+import re
+import operator
+from functools import reduce
 
 class Meibo(models.Model):
     id = models.AutoField(primary_key=True)
@@ -19,21 +22,22 @@ class Meibo(models.Model):
         return self.simei
 
     @classmethod
-    def get_kensaku(cls, str):
+    def get_kensaku(cls, query):
         def kensaku(s):
-            q = Q(simei__regex = s)
-            q |= Q(simei_kana__regex = s)
-            q |= Q(seibetu__regex = s)
-            q |= Q(blood_gata__regex = s)
-            q |= Q(chiiki__regex = s)
-            return q
+            return (
+                Q(simei__regex = s) |
+                Q(simei_kana__regex = s) |
+                Q(seibetu__regex = s) |
+                Q(blood_gata__regex = s) |
+                Q(chiiki__regex = s)
+            )
 
-        q = Q() if str else Q(simei__regex = "^$")
-        if str:
-            for s in str.replace('\u3000',' ').split(' '):
-                q &= kensaku(s)
+        if not query:
+            return Q(simei__regex = "^$")
 
-        return q
+        tokens = re.split(r'[ 　]+', query)
+        q_objects = (kensaku(token) for token in tokens)
+        return reduce(operator.and_, q_objects)
 
     # CSVファイルを読み込んでモデルに挿入
     @classmethod
